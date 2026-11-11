@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f4ee">
+  <meta name="description" content="Adam Septyan Suryana's professional portfolio and personal notes on technology, operations, and purposeful growth.">
+  <title>Adam Septyan Suryana — Notes & Portfolio</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: #f6f4ee;
+      --surface: #fffefa;
+      --ink: #202b26;
+      --muted: #6d7770;
+      --line: #e3e5dc;
+      --green: #245c49;
+      --green-strong: #194533;
+      --lime: #d7ed9f;
+      --peach: #f3d9c8;
+      --shadow: 0 18px 55px rgba(31, 51, 41, .07);
+      --serif: Georgia, "Times New Roman", serif;
+      --contact-ink: #f5f8ee;
+      --contact-muted: rgba(245,248,238,.73);
+      --contact-kicker: var(--lime);
+      --contact-button-bg: var(--lime);
+      --contact-button-ink: #22372b;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #151b18;
+        --surface: #1d2520;
+        --ink: #edf2eb;
+        --muted: #a4b0a7;
+        --line: #344039;
+        --green: #a4d3b5;
+        --green-strong: #c1e6ce;
+        --lime: #30402b;
+        --peach: #49362c;
+        --shadow: 0 18px 55px rgba(0, 0, 0, .2);
+        --contact-ink: #18241d;
+        --contact-muted: rgba(24,36,29,.75);
+        --contact-kicker: #31523c;
+        --contact-button-bg: #26332b;
+        --contact-button-ink: #edf2eb;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html[data-theme="light"] {
+      color-scheme: light;
+      --paper: #f6f4ee;
+      --surface: #fffefa;
+      --ink: #202b26;
+      --muted: #6d7770;
+      --line: #e3e5dc;
+      --green: #245c49;
+      --green-strong: #194533;
+      --lime: #d7ed9f;
+      --peach: #f3d9c8;
+      --shadow: 0 18px 55px rgba(31, 51, 41, .07);
+      --contact-ink: #f5f8ee;
+      --contact-muted: rgba(245,248,238,.73);
+      --contact-kicker: var(--lime);
+      --contact-button-bg: var(--lime);
+      --contact-button-ink: #22372b;
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --paper: #151b18;
+      --surface: #1d2520;
+      --ink: #edf2eb;
+      --muted: #a4b0a7;
+      --line: #344039;
+      --green: #a4d3b5;
+      --green-strong: #c1e6ce;
+      --lime: #30402b;
+      --peach: #49362c;
+      --shadow: 0 18px 55px rgba(0, 0, 0, .2);
+      --contact-ink: #18241d;
+      --contact-muted: rgba(24,36,29,.75);
+      --contact-kicker: #31523c;
+      --contact-button-bg: #26332b;
+      --contact-button-ink: #edf2eb;
+    }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 86% 4%, color-mix(in srgb, var(--lime) 45%, transparent), transparent 25rem),
+        var(--paper);
+      color: var(--ink);
+      font: 15px/1.7 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    button, input { font: inherit; }
+    button { color: inherit; }
+
+    .page { width: min(100% - 36px, 760px); margin: 0 auto; padding: 26px 0 70px; }
+    .reading-track { position: fixed; z-index: 5; inset: 0 0 auto; height: 3px; background: transparent; }
+    .reading-fill { width: 0; height: 100%; background: var(--green); transition: width .1s linear; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
+    .wordmark { display: inline-flex; gap: 10px; align-items: center; font-size: 13px; font-weight: 750; letter-spacing: -.02em; text-decoration: none; }
+    .mark { display: grid; width: 31px; height: 31px; place-items: center; border-radius: 11px; background: var(--green); color: var(--paper); font-size: 15px; }
+    .nav { display: flex; gap: 20px; align-items: center; color: var(--muted); font-size: 12px; }
+    .nav a { text-decoration: none; transition: color .18s ease; }
+    .nav a:hover, .text-link:hover { color: var(--green); }
+    .nav a[aria-current="location"] { color: var(--green); }
+    body[data-mode="media"] .nav a { display: none; }
+    .theme-toggle { display: grid; width: 32px; height: 32px; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); cursor: pointer; transition: transform .18s ease, border-color .18s ease; }
+    .theme-toggle:hover { border-color: var(--green); transform: rotate(12deg); }
+    .mode-switch { display: flex; gap: 5px; width: fit-content; margin: -27px 0 28px auto; padding: 4px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+    .mode-button { padding: 7px 12px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); cursor: pointer; font-size: 11px; font-weight: 650; transition: background .2s ease, color .2s ease, transform .2s ease; }
+    .mode-button:hover { transform: translateY(-1px); }
+    .mode-button[aria-pressed="true"] { background: var(--green); color: var(--paper); }
+    .mode-view { animation: arrive .32s ease both; }
+    .media-hero { position: relative; overflow: hidden; padding: 35px clamp(23px, 6vw, 48px); border: 1px solid var(--line); border-radius: 26px; background: var(--surface); box-shadow: var(--shadow); }
+    .media-hero h1 { font-size: clamp(32px, 6vw, 48px); }
+    .media-hero .intro { margin-bottom: 0; }
+    .media-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .media-card { overflow: hidden; }
+    .media-card-head { display: flex; justify-content: space-between; align-items: start; gap: 12px; padding: 17px 18px 13px; }
+    .media-card-head h3 { margin-bottom: 3px; }
+    .media-card-head p { margin: 0; color: var(--muted); font-size: 11px; }
+    .media-type { flex: 0 0 auto; padding: 4px 8px; border: 1px solid var(--line); border-radius: 99px; color: var(--green); font-size: 9px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .media-frame { position: relative; display: grid; min-height: 210px; place-items: center; overflow: hidden; background: linear-gradient(135deg, color-mix(in srgb, var(--lime) 66%, var(--surface)), color-mix(in srgb, var(--peach) 52%, var(--surface))); }
+    .media-frame.video-frame { aspect-ratio: 16 / 9; min-height: auto; }
+    .media-frame img, .media-frame video { display: block; width: 100%; height: 100%; min-height: inherit; object-fit: cover; }
+    .media-frame.video-frame img, .media-frame.video-frame video { position: absolute; inset: 0; min-height: 0; }
+    .media-placeholder { display: grid; justify-items: center; gap: 8px; padding: 22px; color: var(--green); text-align: center; }
+    .media-placeholder .media-icon { display: grid; width: 48px; height: 48px; place-items: center; border: 1px solid color-mix(in srgb, var(--green) 25%, var(--line)); border-radius: 16px; background: color-mix(in srgb, var(--surface) 62%, transparent); font-size: 21px; }
+    .media-placeholder strong { color: var(--ink); font-size: 12px; }
+    .media-placeholder span { max-width: 230px; color: var(--muted); font-size: 10px; }
+    .media-controls { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 15px; }
+    .media-upload { position: relative; display: inline-flex; align-items: center; gap: 6px; padding: 8px 11px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); color: var(--ink); cursor: pointer; font-size: 10px; font-weight: 650; transition: border-color .18s ease, transform .18s ease; }
+    .media-upload:hover { transform: translateY(-1px); border-color: var(--green); }
+    .media-upload input { position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; }
+    .media-upload:focus-within { outline: 2px solid var(--green); outline-offset: 2px; }
+    .media-status { margin: 0; color: var(--muted); font-size: 9px; text-align: right; }
+    .media-note { margin: 14px 0 0; color: var(--muted); font-size: 11px; text-align: center; }
+    .media-next { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+    .media-next p { margin: 0; color: var(--muted); font-size: 11px; }
+    .media-next .button { padding: 9px 13px; border-radius: 10px; background: var(--green); color: var(--paper); font-size: 11px; font-weight: 700; text-decoration: none; }
+
+    .hero { position: relative; overflow: hidden; padding: 40px clamp(23px, 6vw, 58px) 42px; border: 1px solid var(--line); border-radius: 26px; background: var(--surface); box-shadow: var(--shadow); }
+    .hero::after { position: absolute; top: -76px; right: -48px; width: 220px; height: 220px; border: 1px solid var(--line); border-radius: 50%; content: ""; box-shadow: 0 0 0 25px color-mix(in srgb, var(--lime) 35%, transparent), 0 0 0 51px color-mix(in srgb, var(--lime) 20%, transparent); pointer-events: none; }
+    .eyebrow { display: inline-flex; gap: 8px; align-items: center; margin: 0 0 18px; color: var(--green); font-size: 11px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+    .pulse { width: 7px; height: 7px; border-radius: 50%; background: #79a96c; box-shadow: 0 0 0 4px color-mix(in srgb, #79a96c 17%, transparent); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 540px; margin-bottom: 15px; font-family: var(--serif); font-size: clamp(36px, 7vw, 60px); font-weight: 500; letter-spacing: -.055em; line-height: 1.06; }
+    h1 span { color: var(--green); font-style: italic; }
+    .intro { max-width: 480px; margin-bottom: 23px; color: var(--muted); font-size: 15px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--muted); font-size: 12px; }
+    .hero-meta span { display: inline-flex; gap: 6px; align-items: center; }
+    .hero-meta b { color: var(--ink); font-weight: 600; }
+
+    .section { margin-top: 54px; }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 18px; }
+    .section-kicker { margin-bottom: 5px; color: var(--green); font-size: 10px; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
+    h2 { margin-bottom: 0; font-family: var(--serif); font-size: 29px; font-weight: 500; letter-spacing: -.04em; line-height: 1.2; }
+    h3 { margin-bottom: 5px; font-size: 16px; letter-spacing: -.02em; }
+    .section-note { margin: 0; color: var(--muted); font-size: 12px; }
+    .card { border: 1px solid var(--line); border-radius: 19px; background: var(--surface); box-shadow: 0 8px 28px rgba(31, 51, 41, .035); }
+    .prose { max-width: 650px; }
+    .prose p { margin-bottom: 14px; color: var(--muted); font-size: 14px; }
+    .prose p:last-child { margin-bottom: 0; }
+    .about-card { padding: 24px 26px; }
+    .quote { border-left: 3px solid var(--green); padding: 23px 25px; background: color-mix(in srgb, var(--lime) 34%, var(--surface)); }
+    .quote p { color: var(--ink); font-family: var(--serif); font-size: 17px; line-height: 1.75; }
+    .quote .quote-note { margin: 0; color: var(--muted); font-family: inherit; font-size: 12px; }
+    .reflection-layout { display: grid; grid-template-columns: 132px minmax(0, 1fr); align-items: start; gap: 24px; }
+    .reading-cover { margin: 0; }
+    .reading-cover img { display: block; width: 100%; aspect-ratio: 2 / 3; border: 1px solid var(--line); border-radius: 9px; object-fit: cover; box-shadow: var(--shadow); }
+    .reading-cover figcaption { margin-top: 9px; color: var(--green); font-size: 10px; font-weight: 700; text-align: center; }
+    .reflection-copy { min-width: 0; }
+    .reflection-copy > p:first-child { margin-bottom: 12px; }
+    .book-note { margin-top: 17px; padding-top: 13px; border-top: 1px solid color-mix(in srgb, var(--green) 20%, var(--line)); }
+    .book-note strong { display: block; margin-bottom: 4px; color: var(--green); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+    .book-note p { margin: 0; color: var(--muted); font-family: inherit; font-size: 12px; line-height: 1.65; }
+
+    .skill-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .skill-card { padding: 19px 20px; }
+    .skill-card h3 { display: flex; gap: 8px; align-items: center; font-size: 13px; }
+    .skill-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    .icon { font-size: 15px; }
+    .timeline { position: relative; display: grid; gap: 15px; }
+    .timeline-card { position: relative; padding: 22px 24px; }
+    .timeline-top { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+    .timeline-company { display: flex; min-width: 0; align-items: center; gap: 13px; }
+    .timeline-logo { width: 66px; height: 66px; flex: 0 0 auto; border: 1px solid var(--line); border-radius: 14px; background: #080808; object-fit: cover; }
+    .timeline-date { flex: 0 0 auto; color: var(--green); font-size: 11px; font-weight: 700; }
+    .timeline-sub { margin-bottom: 13px; color: var(--muted); font-size: 12px; }
+    .timeline-card p, .timeline-card li { color: var(--muted); font-size: 13px; }
+    .timeline-card ul { margin: 10px 0 0; padding-left: 18px; }
+    .timeline-card li + li { margin-top: 7px; }
+    .project-card { overflow: hidden; }
+    .project-banner { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 22px 24px; background: color-mix(in srgb, var(--lime) 42%, var(--surface)); }
+    .project-banner p { margin: 0; color: var(--muted); font-size: 12px; }
+    .project-symbol { display: grid; width: 54px; height: 54px; flex: 0 0 auto; place-items: center; border: 1px solid color-mix(in srgb, var(--green) 25%, var(--line)); border-radius: 17px; color: var(--green); font-size: 25px; }
+    .project-body { padding: 22px 24px; }
+    .project-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 0 24px 23px; }
+    .project-shot { min-width: 0; overflow: hidden; margin: 0; border: 1px solid var(--line); border-radius: 13px; background: var(--paper); }
+    .project-shot img { display: block; width: 100%; height: auto; }
+    .project-shot figcaption { padding: 9px 11px; border-top: 1px solid var(--line); color: var(--muted); font-size: 10px; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 15px; }
+    .tag { padding: 4px 9px; border: 1px solid var(--line); border-radius: 99px; color: var(--muted); font-size: 10px; }
+
+    .todo-wrap { max-width: 480px; margin: 0 auto; }
+    .todo-card { overflow: hidden; }
+    .todo-header { padding: 22px 23px 17px; border-bottom: 1px solid var(--line); }
+    .todo-top { display: flex; justify-content: space-between; align-items: center; }
+    .todo-top h3 { margin: 0; font-family: var(--serif); font-size: 22px; font-weight: 500; }
+    .todo-count { color: var(--muted); font-size: 11px; }
+    .progress { height: 4px; margin-top: 16px; overflow: hidden; border-radius: 10px; background: var(--line); }
+    .progress-fill { width: 0; height: 100%; border-radius: inherit; background: var(--green); transition: width .45s cubic-bezier(.2,.8,.2,1); }
+    .todo-list { display: grid; gap: 0; padding: 4px 22px; }
+    .todo-item { display: flex; gap: 12px; align-items: center; min-height: 55px; border-bottom: 1px solid var(--line); animation: arrive .28s ease both; }
+    .todo-item:last-child { border-bottom: 0; }
+    @keyframes arrive { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+    .check { display: grid; width: 19px; height: 19px; flex: 0 0 auto; place-items: center; border: 1.5px solid #aeb8af; border-radius: 50%; background: transparent; cursor: pointer; transition: background .22s ease, border-color .22s ease, transform .22s cubic-bezier(.2,.8,.2,1); }
+    .check:hover { border-color: var(--green); transform: scale(1.09); }
+    .check::after { width: 5px; height: 9px; border: solid var(--paper); border-width: 0 1.7px 1.7px 0; content: ""; opacity: 0; transform: rotate(45deg) scale(.5); transition: .2s ease; }
+    .todo-item.done .check { border-color: var(--green); background: var(--green); transform: scale(1.04); }
+    .todo-item.done .check::after { opacity: 1; transform: rotate(45deg) scale(1); }
+    .todo-text { min-width: 0; flex: 1; font-size: 13px; transition: color .22s ease, opacity .22s ease; }
+    .todo-item.done .todo-text { color: var(--muted); opacity: .7; text-decoration: line-through; text-decoration-thickness: 1px; }
+    .delete-task { width: 28px; height: 28px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); cursor: pointer; opacity: 0; transition: .18s ease; }
+    .todo-item:hover .delete-task, .delete-task:focus-visible { opacity: 1; }
+    .delete-task:hover { background: color-mix(in srgb, var(--peach) 65%, transparent); color: var(--ink); }
+    .add-form { display: flex; gap: 8px; padding: 13px 15px 15px; border-top: 1px solid var(--line); }
+    .add-form input { min-width: 0; flex: 1; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; outline: none; background: var(--paper); color: var(--ink); font-size: 12px; }
+    .add-form input:focus { border-color: var(--green); box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 12%, transparent); }
+    .add-form button { padding: 0 14px; border: 0; border-radius: 10px; background: var(--green); color: var(--paper); cursor: pointer; font-size: 12px; font-weight: 650; transition: background .18s ease, transform .18s ease; }
+    .add-form button:hover { background: var(--green-strong); transform: translateY(-1px); }
+    .empty { padding: 20px 0; color: var(--muted); font-size: 12px; text-align: center; }
+    .todo-caption { margin: 11px 0 0; color: var(--muted); font-size: 11px; text-align: center; }
+
+    .education { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .education .card { display: flex; min-height: 112px; align-items: center; justify-content: space-between; gap: 15px; padding: 16px 18px 16px 21px; }
+    .education img { width: 112px; height: 78px; flex: 0 0 auto; border: 1px solid var(--line); border-radius: 11px; object-fit: cover; }
+    .education .education-copy { min-width: 0; }
+    .education p { margin: 0; color: var(--muted); font-size: 12px; }
+    .contact { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 24px 26px; background: var(--green); color: var(--contact-ink); }
+    .contact h2 { margin-bottom: 6px; font-size: 25px; }
+    .contact p { margin: 0; color: var(--contact-muted); font-size: 12px; }
+    .social-links { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; }
+    .social-link { display: inline-flex; align-items: center; gap: 6px; color: var(--contact-ink); font-size: 11px; text-decoration: none; transition: opacity .18s ease, transform .18s ease; }
+    .social-link:hover { opacity: .8; transform: translateY(-1px); }
+    .social-link svg { width: 15px; height: 15px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
+    .social-link .brand-icon { fill: currentColor; stroke: none; }
+    .contact .section-kicker { color: var(--contact-kicker) !important; }
+    .contact .button { flex: 0 0 auto; padding: 10px 14px; border-radius: 10px; background: var(--contact-button-bg); color: var(--contact-button-ink); font-size: 11px; font-weight: 750; text-decoration: none; }
+    footer { display: flex; justify-content: space-between; gap: 15px; margin-top: 35px; color: var(--muted); font-size: 11px; }
+    .text-link { color: var(--green); text-decoration: none; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; clip-path: inset(50%); }
+
+    @media (max-width: 560px) {
+      .page { width: min(100% - 24px, 760px); padding-top: 16px; }
+      .topbar { margin-bottom: 26px; }
+      .nav { gap: 12px; font-size: 11px; }
+      .mode-switch { margin: -12px 0 22px; }
+      .hero { padding: 29px 23px 30px; border-radius: 21px; }
+      .hero::after { right: -135px; opacity: .65; }
+      .skill-grid, .education, .media-grid { grid-template-columns: 1fr; }
+      .section { margin-top: 42px; }
+      .section-heading { align-items: start; flex-direction: column; gap: 5px; }
+      .timeline-card { padding: 19px; }
+      .timeline-top { align-items: start; }
+      .timeline-company { gap: 10px; }
+      .timeline-logo { width: 54px; height: 54px; }
+      .project-banner, .project-body { padding: 19px; }
+      .project-gallery { grid-template-columns: 1fr; padding: 0 19px 19px; }
+      .education .card { padding: 14px; }
+      .education img { width: 96px; height: 70px; }
+      .reflection-layout { grid-template-columns: 88px minmax(0, 1fr); gap: 16px; }
+      .quote { padding: 18px; }
+      .quote p { font-size: 15px; }
+      .contact { align-items: flex-start; flex-direction: column; padding: 22px; }
+      .media-hero { padding: 27px 23px; border-radius: 21px; }
+      .delete-task { opacity: .72; }
+      footer { flex-direction: column; gap: 4px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="reading-track" aria-hidden="true"><div class="reading-fill" id="reading-fill"></div></div>
+  <div class="page">
+    <header class="topbar">
+      <a class="wordmark" href="#home" aria-label="Adam — back to top"><span class="mark">a.</span><span>Adam's field notes</span></a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#notes">Notes</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme"><span aria-hidden="true">◐</span></button>
+      </nav>
+    </header>
+
+    <div class="mode-switch" role="tablist" aria-label="Portfolio views">
+      <button class="mode-button" id="profile-tab" type="button" role="tab" aria-controls="profile-mode" aria-selected="true" aria-pressed="true">01&nbsp; Profile</button>
+      <button class="mode-button" id="media-tab" type="button" role="tab" aria-controls="media-mode" aria-selected="false" aria-pressed="false">02&nbsp; Stories</button>
+    </div>
+
+    <main>
+      <div class="mode-view" id="profile-mode" role="tabpanel" aria-labelledby="profile-tab">
+      <section class="hero" id="home">
+        <p class="eyebrow"><span class="pulse"></span> Information technology student · Operations · Data</p>
+        <h1>Hello, I'm<br><span>Adam Septyan.</span></h1>
+        <p class="intro">I enjoy finding thoughtful ways to make real-world work run better—from managing property operations to building spreadsheets that think ahead.</p>
+        <div class="hero-meta">
+          <span>⌖ <b>Bandung, West Java</b></span>
+          <span>🎓 <b>STMIK AMIM Bandung</b></span>
+          <span>✦ <b>Born December 16, 2004</b></span>
+          <span>✦ <b>Single</b></span>
+          <span>✦ <b>Open to opportunities</b></span>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="section-heading">
+          <div><p class="section-kicker">01 / A little about me</p><h2>Learning by building.</h2></div>
+          <p class="section-note">Profile</p>
+        </div>
+        <div class="card about-card prose">
+          <p>I am an adaptable, technology-minded undergraduate at STMIK AMIM Bandung with hands-on experience in the property and rental industry. My work spans digital marketing, financial administration, basic database management, and customer service.</p>
+          <p>I use Microsoft Excel to automate workflows, simplify business processes, and support data-informed decisions. I am a quick learner who values clear organization, careful execution, and opportunities to take on new challenges.</p>
+        </div>
+      </section>
+
+      <section class="section" id="skills">
+        <div class="section-heading">
+          <div><p class="section-kicker">02 / Toolkit</p><h2>How I make a difference.</h2></div>
+        </div>
+        <div class="skill-grid">
+          <article class="card skill-card"><h3><span class="icon">▦</span> Data & technology</h3><p>Advanced Microsoft Excel, automated dashboards, formulas, PivotTables, financial reporting, and foundational database management.</p></article>
+          <article class="card skill-card"><h3><span class="icon">⌂</span> Business & operations</h3><p>Financial administration, cashier operations, property management, housekeeping quality control, and daily coordination.</p></article>
+          <article class="card skill-card"><h3><span class="icon">↗</span> Marketing & communication</h3><p>Digital marketing, customer relationship management (CRM), client acquisition, and customer service.</p></article>
+          <article class="card skill-card"><h3><span class="icon">✳</span> Working style</h3><p>Multitasking, critical thinking, adaptability, problem-solving, team collaboration, and attention to detail.</p></article>
+        </div>
+      </section>
+
+      <section class="section" id="work">
+        <div class="section-heading">
+          <div><p class="section-kicker">03 / Experience</p><h2>Learning in the real world.</h2></div>
+        </div>
+        <div class="timeline">
+          <article class="card timeline-card">
+            <div class="timeline-top"><div class="timeline-company"><img class="timeline-logo" src="assets/zainroom.jpg" alt="Zainroom logo"><div><h3>Zainroom</h3><p class="timeline-sub">Apartment Rental Property Company · Bandung</p></div></div><span class="timeline-date">2026 — Present</span></div>
+            <p><strong>Multiple roles:</strong> Marketing, Housekeeping, Administrator, Cashier, Excel Specialist, and Treasurer.</p>
+            <ul>
+              <li>Manage day-to-day property operations, supporting a seamless guest experience and high tenant satisfaction.</li>
+              <li>Lead digital marketing initiatives and client outreach to attract prospective tenants and support occupancy.</li>
+              <li>Manage cash flow, daily bookkeeping, transaction reconciliation, and financial administration.</li>
+              <li>Build Excel-based tracking systems to automate operational data collection and streamline weekly reporting.</li>
+              <li>Coordinate housekeeping schedules and administrative workflows to maintain property quality and efficiency.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <div><p class="section-kicker">04 / Featured project</p><h2>Making the numbers clearer.</h2></div>
+        </div>
+        <article class="card project-card">
+          <div class="project-banner">
+            <div><p class="section-kicker">Zainroom · Excel & data management</p><h3>Apartment Operations & Finance Dashboard</h3><p>A single view of the details that keep a property moving.</p></div>
+            <div class="project-symbol" aria-hidden="true">▤</div>
+          </div>
+          <div class="project-body prose">
+            <p>Developed an automated Excel dashboard to track apartment availability, guest check-ins and check-outs, and cash-flow transactions. Advanced formulas, data validation, and dynamic tables helped reduce manual entry errors and speed up financial reporting for management.</p>
+            <div class="tag-row"><span class="tag">Excel formulas</span><span class="tag">Data validation</span><span class="tag">Dynamic tables</span><span class="tag">Financial reporting</span></div>
+          </div>
+          <div class="project-gallery" aria-label="Zainroom Excel dashboard screenshots">
+            <figure class="project-shot"><img src="assets/zainroom-dashboard-overview.jpeg" alt="Overview of the Zainroom apartment operations spreadsheet"><figcaption>Daily unit, check-in, and payment tracking</figcaption></figure>
+            <figure class="project-shot"><img src="assets/zainroom-dashboard-detail.jpeg" alt="Detailed Zainroom spreadsheet showing transaction and cash totals"><figcaption>Transaction records and financial totals</figcaption></figure>
+          </div>
+        </article>
+      </section>
+
+      <section class="section" id="notes">
+        <div class="section-heading">
+          <div><p class="section-kicker">05 / A personal note</p><h2>Freedom, with direction.</h2></div>
+        </div>
+        <article class="card quote prose">
+          <div class="reflection-layout">
+            <figure class="reading-cover"><img src="assets/escape-from-freedom.jpg" alt="Cover of Escape from Freedom by Erich Fromm"><figcaption>A favorite book</figcaption></figure>
+            <div class="reflection-copy">
+              <p>“We live in a time of extraordinary digital connection, where social norms are constantly being challenged and rewritten. For Generation Z, that brings both remarkable freedom of expression and the pressure of a fast-moving, always-connected world. To me, genuine freedom is not simply the absence of rules or the urge to follow every trend. It grows from self-mastery, emotional intelligence, and conscious choices.”</p>
+              <p>“When instant gratification is celebrated, choosing purpose over peer pressure is a powerful statement. Healthy boundaries and everyday decisions shape the future we build. With an open mind and steady integrity, we can make the most of our generation’s opportunities without losing sight of our values or direction.”</p>
+              <p class="quote-note">A personal reflection on modern life, shaped in part by a favorite read.</p>
+              <div class="book-note"><strong>A book I admire</strong><p><em>Escape from Freedom</em> (also published as <em>The Fear of Freedom</em>) by Erich Fromm explores the tension between personal freedom, belonging, and the pressure to conform. Its questions about choosing one’s own direction resonate with this perspective.</p></div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section">
+        <div class="section-heading"><div><p class="section-kicker">06 / Education</p><h2>Where it starts.</h2></div></div>
+        <div class="education">
+          <article class="card"><div class="education-copy"><h3>STMIK AMIM Bandung</h3><p>Undergraduate · Information Systems · Digital Business coursework</p></div><img src="assets/stmik-amim-bandung.jpg" alt="STMIK AMIM Bandung campus"></article>
+          <article class="card"><div class="education-copy"><h3>SMAN 2 Bandung</h3><p>High school graduate · Bandung, West Java</p></div><img src="assets/sman-2-bandung.png" alt="SMAN 2 Bandung campus"></article>
+        </div>
+      </section>
+
+      <section class="section" id="objective">
+        <div class="section-heading"><div><p class="section-kicker">07 / Career objective</p><h2>Purposeful work, measurable progress.</h2></div></div>
+        <div class="card about-card prose">
+          <p>I am seeking a full-time position, internship, or freelance opportunity where I can apply my operational experience, analytical mindset, and Excel expertise to support company growth, improve processes, and deliver operational excellence.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <div><p class="section-kicker">08 / A small workspace</p><h2>A list of things to get done.</h2></div>
+        </div>
+        <div class="todo-wrap">
+          <div class="card todo-card">
+            <div class="todo-header">
+              <div class="todo-top"><h3>My little list</h3><span class="todo-count" id="todo-count" aria-live="polite"></span></div>
+              <div class="progress" role="progressbar" aria-label="Task progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progress-fill"></div></div>
+            </div>
+            <div class="todo-list" id="todo-list" aria-live="polite"></div>
+            <form class="add-form" id="add-form">
+              <label class="sr-only" for="new-task">Write a new task</label>
+              <input id="new-task" name="task" type="text" maxlength="120" placeholder="Write a new task..." autocomplete="off" required>
+              <button type="submit">Add <span aria-hidden="true">＋</span></button>
+            </form>
+          </div>
+          <p class="todo-caption">Saved automatically in this browser · check a task to mark it done</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="card contact" id="contact-details">
+          <div><p class="section-kicker">What's next</p><h2>Let's work together.</h2><p>Seeking a full-time role, internship, or freelance opportunity where I can help improve operations and make data more useful.</p>
+            <nav class="social-links" aria-label="Contact and social links">
+              <a class="social-link" href="mailto:adamseptyansuryana@gmail.com" aria-label="Email Adam at adamseptyansuryana@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg>Email</a>
+              <a class="social-link" href="https://wa.me/62895343376493" target="_blank" rel="noopener noreferrer" aria-label="Message Adam on WhatsApp at 0895343376493"><svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2a9.85 9.85 0 0 0-8.42 14.96L2.3 22l5.2-1.36A9.94 9.94 0 1 0 12.04 2Zm0 17.98a8.04 8.04 0 0 1-4.1-1.12l-.3-.18-3.08.8.82-3-.2-.31a8.02 8.02 0 1 1 6.86 3.81Zm4.4-6.02c-.24-.12-1.43-.7-1.65-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.1-.1.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.4h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.52.58.18 1.1.16 1.52.1.46-.07 1.43-.58 1.63-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z"></path></svg>WhatsApp</a>
+              <a class="social-link" href="https://instagram.com/_adamspt" target="_blank" rel="noopener noreferrer" aria-label="Visit Adam's Instagram profile, @ underscore adamspt"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="18" cy="6" r=".8" fill="currentColor" stroke="none"></circle></svg>Instagram</a>
+            </nav>
+          </div>
+          <a class="button" href="mailto:adamseptyansuryana@gmail.com">Get in touch ↗</a>
+        </div>
+      </section>
+      </div>
+
+      <section class="mode-view" id="media-mode" role="tabpanel" aria-labelledby="media-tab" hidden>
+        <div class="media-hero">
+          <p class="eyebrow"><span class="pulse"></span> Beyond the résumé · Personal stories</p>
+          <h1>A little more<br><span>of my world.</span></h1>
+          <p class="intro">A collection of moments, interests, and honest reviews. Choose a file below to preview your own photo or video in each space.</p>
+        </div>
+        <section class="section" aria-label="Personal media gallery">
+          <div class="section-heading">
+            <div><p class="section-kicker">01 / On camera</p><h2>Stories worth sharing.</h2></div>
+            <p class="section-note">Personal media</p>
+          </div>
+          <div class="media-grid">
+            <article class="card media-card">
+              <div class="media-card-head"><div><h3>Introduction</h3><p>A quick hello and a little about me.</p></div><span class="media-type">Video</span></div>
+              <div class="media-frame video-frame" data-media-frame="intro-video">
+                <div class="media-placeholder"><span class="media-icon" aria-hidden="true">▶</span><strong>Your introduction video</strong><span>Share your story, background, and what you are excited to explore.</span></div>
+              </div>
+              <div class="media-controls"><label class="media-upload">＋ Choose video<input type="file" accept="video/*" data-media-input="intro-video" aria-label="Choose your introduction video"></label><p class="media-status" data-media-status="intro-video">No video selected</p></div>
+            </article>
+            <article class="card media-card">
+              <div class="media-card-head"><div><h3>Hobbies</h3><p>Little things I love doing.</p></div><span class="media-type">Photo</span></div>
+              <div class="media-frame" data-media-frame="hobby-photo">
+                <div class="media-placeholder"><span class="media-icon" aria-hidden="true">✳</span><strong>A favorite hobby moment</strong><span>Add a photo that captures something you enjoy outside of work.</span></div>
+              </div>
+              <div class="media-controls"><label class="media-upload">＋ Choose photo<input type="file" accept="image/*" data-media-input="hobby-photo" aria-label="Choose a photo of your hobby"></label><p class="media-status" data-media-status="hobby-photo">No photo selected</p></div>
+            </article>
+            <article class="card media-card">
+              <div class="media-card-head"><div><h3>Hobby in motion</h3><p>A glimpse into my favorite activities.</p></div><span class="media-type">Video</span></div>
+              <div class="media-frame video-frame" data-media-frame="hobby-video">
+                <div class="media-placeholder"><span class="media-icon" aria-hidden="true">▶</span><strong>Show a hobby in action</strong><span>A short clip brings the moment to life.</span></div>
+              </div>
+              <div class="media-controls"><label class="media-upload">＋ Choose video<input type="file" accept="video/*" data-media-input="hobby-video" aria-label="Choose a hobby video"></label><p class="media-status" data-media-status="hobby-video">No video selected</p></div>
+            </article>
+            <article class="card media-card">
+              <div class="media-card-head"><div><h3>Food reviews</h3><p>Good food, thoughtful first impressions.</p></div><span class="media-type">Video</span></div>
+              <div class="media-frame video-frame" data-media-frame="food-video">
+                <div class="media-placeholder"><span class="media-icon" aria-hidden="true">▶</span><strong>A food review video</strong><span>Share a place, a dish, and what made it memorable.</span></div>
+              </div>
+              <div class="media-controls"><label class="media-upload">＋ Choose video<input type="file" accept="video/*" data-media-input="food-video" aria-label="Choose your food review video"></label><p class="media-status" data-media-status="food-video">No video selected</p></div>
+            </article>
+            <article class="card media-card">
+              <div class="media-card-head"><div><h3>Product reviews</h3><p>Useful finds, reviewed with care.</p></div><span class="media-type">Video</span></div>
+              <div class="media-frame video-frame" data-media-frame="product-video">
+                <div class="media-placeholder"><span class="media-icon" aria-hidden="true">▶</span><strong>A product review video</strong><span>Talk through the details, everyday use, and who it may suit.</span></div>
+              </div>
+              <div class="media-controls"><label class="media-upload">＋ Choose video<input type="file" accept="video/*" data-media-input="product-video" aria-label="Choose your product review video"></label><p class="media-status" data-media-status="product-video">No video selected</p></div>
+            </article>
+          </div>
+          <p class="media-note">Previews use files on this device and are not uploaded or saved. Choose them again when you reopen this page.</p>
+          <div class="media-next"><p>That’s a little more of my story.</p><button class="button" id="back-to-profile" type="button">← Back to profile</button></div>
+        </section>
+      </section>
+    </main>
+    <footer><span>© <span id="year"></span> Adam Septyan Suryana</span><span>Made with curiosity in Bandung ✳</span></footer>
+  </div>
+
+  <script>
+    (() => {
+      const STORAGE_KEY = "adam-field-notes-tasks-v1";
+      const examples = [
+        { id: "sample-1", text: "Polish the Zainroom finance dashboard", done: false },
+        { id: "sample-2", text: "Learn one new Excel formula", done: true },
+        { id: "sample-3", text: "Read and capture ideas for the week", done: false }
+      ];
+      const list = document.querySelector("#todo-list");
+      const count = document.querySelector("#todo-count");
+      const fill = document.querySelector("#progress-fill");
+      const progress = document.querySelector(".progress");
+      const form = document.querySelector("#add-form");
+      const input = document.querySelector("#new-task");
+      const themeButton = document.querySelector("#theme-toggle");
+      const readingFill = document.querySelector("#reading-fill");
+      const themeKey = "adam-field-notes-theme-v1";
+      const profileMode = document.querySelector("#profile-mode");
+      const mediaMode = document.querySelector("#media-mode");
+      const profileTab = document.querySelector("#profile-tab");
+      const mediaTab = document.querySelector("#media-tab");
+      let tasks = loadTasks();
+
+      function showMode(mode) {
+        const showMedia = mode === "media";
+        profileMode.hidden = showMedia;
+        mediaMode.hidden = !showMedia;
+        profileTab.setAttribute("aria-selected", String(!showMedia));
+        profileTab.setAttribute("aria-pressed", String(!showMedia));
+        mediaTab.setAttribute("aria-selected", String(showMedia));
+        mediaTab.setAttribute("aria-pressed", String(showMedia));
+        document.body.dataset.mode = mode;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        updateReadingProgress();
+      }
+
+      profileTab.addEventListener("click", () => showMode("profile"));
+      mediaTab.addEventListener("click", () => showMode("media"));
+      document.querySelector("#back-to-profile").addEventListener("click", () => showMode("profile"));
+
+      const mediaUrls = new Map();
+      document.querySelectorAll("[data-media-input]").forEach(inputElement => {
+        inputElement.addEventListener("change", () => {
+          const file = inputElement.files && inputElement.files[0];
+          if (!file) return;
+          const key = inputElement.dataset.mediaInput;
+          const frame = document.querySelector(`[data-media-frame="${key}"]`);
+          const oldUrl = mediaUrls.get(key);
+          if (oldUrl) URL.revokeObjectURL(oldUrl);
+          const url = URL.createObjectURL(file);
+          mediaUrls.set(key, url);
+          frame.replaceChildren();
+          const preview = document.createElement(file.type.startsWith("image/") ? "img" : "video");
+          preview.src = url;
+          preview.alt = file.type.startsWith("image/") ? `Preview of ${file.name}` : "";
+          if (preview instanceof HTMLVideoElement) {
+            preview.controls = true;
+            preview.playsInline = true;
+          }
+          frame.append(preview);
+          document.querySelector(`[data-media-status="${key}"]`).textContent = file.name;
+        });
+      });
+
+      function applyTheme(theme) {
+        document.documentElement.dataset.theme = theme;
+        themeButton.setAttribute("aria-label", `Switch to ${theme === "dark" ? "light" : "dark"} theme`);
+        themeButton.title = `Switch to ${theme === "dark" ? "light" : "dark"} theme`;
+        themeButton.firstElementChild.textContent = theme === "dark" ? "☼" : "◐";
+      }
+
+      function updateReadingProgress() {
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const percentage = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+        readingFill.style.width = `${Math.min(100, Math.max(0, percentage))}%`;
+      }
+
+      function loadTasks() {
+        try {
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if (saved === null) return examples.map(task => ({ ...task }));
+          const parsed = JSON.parse(saved);
+          if (!Array.isArray(parsed)) throw new TypeError("Saved tasks must be an array.");
+          return parsed.filter(task =>
+            task && typeof task.id === "string" &&
+            typeof task.text === "string" &&
+            typeof task.done === "boolean"
+          );
+        } catch (error) {
+          console.error("Could not load saved tasks.", error);
+          return examples.map(task => ({ ...task }));
+        }
+      }
+
+      function saveTasks() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+        } catch (error) {
+          console.error("Could not save tasks to localStorage.", error);
+          count.textContent = "Could not save";
+        }
+      }
+
+      function render() {
+        list.replaceChildren();
+        if (tasks.length === 0) {
+          const empty = document.createElement("p");
+          empty.className = "empty";
+          empty.textContent = "Nothing on the list yet. Add one small thing to get started ✦";
+          list.append(empty);
+        }
+        tasks.forEach(task => {
+          const row = document.createElement("div");
+          row.className = `todo-item${task.done ? " done" : ""}`;
+          const checkbox = document.createElement("button");
+          checkbox.className = "check";
+          checkbox.type = "button";
+          checkbox.setAttribute("aria-label", `${task.done ? "Mark incomplete" : "Complete"}: ${task.text}`);
+          checkbox.setAttribute("aria-pressed", String(task.done));
+          checkbox.addEventListener("click", () => {
+            task.done = !task.done;
+            saveTasks();
+            render();
+          });
+          const text = document.createElement("span");
+          text.className = "todo-text";
+          text.textContent = task.text;
+          const remove = document.createElement("button");
+          remove.className = "delete-task";
+          remove.type = "button";
+          remove.textContent = "×";
+          remove.setAttribute("aria-label", `Delete task: ${task.text}`);
+          remove.addEventListener("click", () => {
+            tasks = tasks.filter(item => item.id !== task.id);
+            saveTasks();
+            render();
+          });
+          row.append(checkbox, text, remove);
+          list.append(row);
+        });
+        const complete = tasks.filter(task => task.done).length;
+        count.textContent = `${complete} / ${tasks.length} complete`;
+        const percentage = tasks.length ? Math.round((complete / tasks.length) * 100) : 0;
+        fill.style.width = `${percentage}%`;
+        progress.setAttribute("aria-valuenow", String(percentage));
+      }
+
+      form.addEventListener("submit", event => {
+        event.preventDefault();
+        const text = input.value.trim();
+        if (!text) return;
+        tasks.push({ id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`, text, done: false });
+        saveTasks();
+        render();
+        input.value = "";
+        input.focus();
+      });
+
+      try {
+        const savedTheme = localStorage.getItem(themeKey);
+        if (savedTheme === "light" || savedTheme === "dark") applyTheme(savedTheme);
+      } catch (error) {
+        console.error("Could not load the saved color theme.", error);
+      }
+      themeButton.addEventListener("click", () => {
+        const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        applyTheme(nextTheme);
+        try {
+          localStorage.setItem(themeKey, nextTheme);
+        } catch (error) {
+          console.error("Could not save the color theme.", error);
+        }
+      });
+      window.addEventListener("scroll", updateReadingProgress, { passive: true });
+      window.addEventListener("resize", updateReadingProgress);
+      document.querySelector("#year").textContent = new Date().getFullYear();
+      render();
+      updateReadingProgress();
+    })();
+  </script>
+</body>
+</html>
